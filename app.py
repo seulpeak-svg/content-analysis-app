@@ -1293,9 +1293,9 @@ with tab4:
 
     # ── 분석 시작 ───────────────────────────────────────────────
     if st.session_state.get("_selection_done") and st.button("분석 시작") and hypothesis:
-        api_key = os.getenv("ANTHROPIC_API_KEY")
+        api_key = os.getenv("ANTHROPIC_API_KEY") or st.secrets.get("ANTHROPIC_API_KEY", "")
         if not api_key or api_key == "여기에_API_키_입력":
-            st.error("API 키가 설정되지 않았습니다. .env 파일을 확인해주세요.")
+            st.error("API 키가 설정되지 않았습니다. Streamlit Cloud → Settings → Secrets에 ANTHROPIC_API_KEY를 추가해주세요.")
         else:
             import json
             client = anthropic.Anthropic(api_key=api_key)
